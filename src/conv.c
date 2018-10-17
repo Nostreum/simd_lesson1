@@ -6,6 +6,10 @@
  *
  * (mask is supposed to be 3x3)
  *
+ *
+ * To simplify, convolution is not apply to
+ * row/column 0/N
+ *
  */
 void f32_conv_3x3(f32 **img, f32 **mask, f32 **out, int h, int w) {
 
@@ -30,6 +34,9 @@ void f32_conv_3x3(f32 **img, f32 **mask, f32 **out, int h, int w) {
  * SSE (intel) intresics.
  *
  * (mask is supposed to be 3x3)
+ *
+ * To simplify, convolution is not apply to
+ * row/column 0/N
  *
  * */
 void f32_conv_sse_3x3(f32 **img, f32 **mask, f32 **out, int h, int w) {
