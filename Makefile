@@ -1,4 +1,4 @@
-CC      = g++ -w
+CC      = gcc -w
 CFLAGS  = -Wall
 INCLUDE	= -I include/
 
