@@ -16,3 +16,7 @@ You can find all the information about intel intrinsics function on this page :
 
 To start use SSE2 instructions (128bits registers, 4x32bits FP).
 To go futher you can have a look at AVX/AVX-512 (512bits registers).
+
+## Submit
+
+Create your own remote branch with your name.
