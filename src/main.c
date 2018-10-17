@@ -29,9 +29,7 @@ int main(int argc, char *argv[]) {
   f32 **out_simd  = alloc_f32_2D(N, N);
   f32 **mask      = alloc_f32_2D(3, 3);;
 
-  // Timer and execution time
-  timer_t timer;
-
+  // Execution time
   double exec_time_classic;
   double exec_time_simd;
 
@@ -48,16 +46,14 @@ int main(int argc, char *argv[]) {
 
   // Launching convolution
   printf("Launching classic algorithm... \n");
-  timer = launch_N_test(f32_conv_3x3, img, mask, out, N, NTEST);
+  exec_time_classic = launch_N_test(f32_conv_3x3, img, mask, out, N, NTEST);
 
-  exec_time_classic = get_time_in_sec_from_timer(&timer); 
   cpp_classic       = exec_time_classic / (N*N);
   printf("\tExecution time : %.4fs \n", exec_time_classic, cpp_classic);
 
   printf("Launching simd algorithm... \n");
-  timer = launch_N_test(f32_conv_sse_3x3, img, mask, out_simd, N, NTEST);
+  exec_time_simd = launch_N_test(f32_conv_sse_3x3, img, mask, out_simd, N, NTEST);
   
-  exec_time_simd = get_time_in_sec_from_timer(&timer); 
   cpp_simd       = exec_time_simd / (N*N);
   printf("\tExecution time : %.4fs \n", exec_time_simd, cpp_simd);
 

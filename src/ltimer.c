@@ -12,15 +12,22 @@ struct timespec diff(struct timespec start, struct timespec end) {
 	return temp;
 }
 
-timer_t launch_N_test(void (*callback)(f32**, f32**, f32**, int, int),
+double launch_N_test(void (*callback)(f32**, f32**, f32**, int, int),
                       f32** img, f32** mask, f32** out, int size, int nbtest) {
 
+    double time = 0.0f;
     timer_t timer;
-    start_timer(&timer);
-    callback(img, mask, out, size, size);
-    end_timer_get_diff(&timer);
 
-    return timer;
+    for (int i=0; i<nbtest; i++) {
+        start_timer(&timer);
+        callback(img, mask, out, size, size);
+        end_timer_get_diff(&timer);
+        time += get_time_in_sec_from_timer(&timer);
+    }
+
+    time /= nbtest;
+
+    return time;
 }
 
 void start_timer(timer_t *timer) {
