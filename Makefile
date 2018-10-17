@@ -17,7 +17,10 @@ $(EXEC_NAME): $(OBJ_FILES)
 $(BUILD_DIR)%.o: $(SRC_DIR)%.c
 	$(CC) $(INCLUDE) $(CFLAGS) -o $@ -c $<
 
-test: $(EXEC_NAME)
+build:
+	mkdir -p $(BUILD_DIR)
+
+test: build $(EXEC_NAME) 
 
 clean:
 	rm $(BUILD_DIR)*.o $(EXEC_NAME)
