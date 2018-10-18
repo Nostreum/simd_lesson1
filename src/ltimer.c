@@ -16,7 +16,7 @@ double launch_N_test(void (*callback)(f32**, f32**, f32**, int, int),
                       f32** img, f32** mask, f32** out, int size, int nbtest) {
 
     double time = 0.0f;
-    timer_t timer;
+    ltimer_t timer;
 
     for (int i=0; i<nbtest; i++) {
         start_timer(&timer);
@@ -30,19 +30,19 @@ double launch_N_test(void (*callback)(f32**, f32**, f32**, int, int),
     return time;
 }
 
-void start_timer(timer_t *timer) {
+void start_timer(ltimer_t *timer) {
     clock_gettime(CLOCK_MONOTONIC, &timer->t1);
 }
 
-void end_timer(timer_t *timer) {
+void end_timer(ltimer_t *timer) {
     clock_gettime(CLOCK_MONOTONIC, &timer->t2);
 }
 
-void end_timer_get_diff(timer_t *timer) {
+void end_timer_get_diff(ltimer_t *timer) {
     clock_gettime(CLOCK_MONOTONIC, &timer->t2);
     timer->delta = diff(timer->t1, timer->t2);
 }
 
-double get_time_in_sec_from_timer(timer_t *timer) {
+double get_time_in_sec_from_timer(ltimer_t *timer) {
     return (double)(timer->delta.tv_sec) + ((double)timer->delta.tv_nsec/NANO_SEC);
 }
