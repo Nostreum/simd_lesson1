@@ -18,8 +18,12 @@
 #include <ltimer.h>
 #include <alloc.h>
 #include <checker.h>
+#include <debug.h>
 
 #define NTEST 100
+
+#define M_PI 3.14159265358979323846
+#define SIGMA 0.8
 
 int main(int argc, char *argv[]) {
 
@@ -27,7 +31,7 @@ int main(int argc, char *argv[]) {
   f32 **img       = alloc_f32_2D(N, N);
   f32 **out       = alloc_f32_2D(N, N);
   f32 **out_simd  = alloc_f32_2D(N, N);
-  f32 **mask      = alloc_f32_2D(3, 3);;
+  f32 **mask      = alloc_f32_2D(3, 3);
 
   // Execution time
   double exec_time_classic;
@@ -40,9 +44,20 @@ int main(int argc, char *argv[]) {
 
   // 2D Array initialisation
   init_rand_f32_2D(img, N, N, MAX_VALUE);
-  init_rand_f32_2D(mask, 3, 3, 1.f);
   init_zero_f32_2D(out, N, N);
   init_zero_f32_2D(out_simd, N, N);
+
+  // Gaussian filter
+  f32 fract = 1./(2.*M_PI*SIGMA*SIGMA);
+  for (int i=0; i<3; i++) {
+    for (int j=0; j<3; j++) {
+      mask[i][j] = fract * exp(-((i-1)*(i-1) + (j-1)*(j-1)) / (2. * SIGMA * SIGMA));
+    }
+  }
+
+  printf("Generated gaussian filter... : \n");
+  print_2D_array(mask, 3, 3);
+
 
   // Launching convolution
   printf("Launching classic algorithm... \n");
