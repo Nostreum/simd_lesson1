@@ -74,12 +74,21 @@ int main(int argc, char *argv[]) {
 
   // Speedup 
   speedup = (exec_time_classic / exec_time_simd * 100) - 100;
+  
+  // Debug
+#ifdef DEBUG
+    printf("Scalar result : \n");
+    print_2D_array(out, N, N);
+
+    printf("\nSIMD result : \n");
+    print_2D_array(out_simd, N, N);
+#endif
 
   // Checker
   printf("Functionnal checking... \n");
-  if (!matrices_are_equal(out, out_simd, N, N)) {
-    printf("[SIMD algorithm is wrong] \n");
-    printf("[TRY AGAIN] \n");
+
+  if(!matrices_are_equal(out, out_simd, N, N)) {
+    printf("[ERROR] Two values are not equal.  \n");
     return 0;
   }
 
