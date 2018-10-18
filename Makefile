@@ -1,5 +1,5 @@
 CC      = gcc -w
-CFLAGS  = -Wall
+CFLAGS  = -Wall -lrt
 INCLUDE	= -I include/
 
 BUILD_DIR = build/
@@ -12,7 +12,7 @@ OBJ_FILES = $(addprefix $(BUILD_DIR), $(notdir $(C_FILES:.c=.o)))
 all: test 
 
 $(EXEC_NAME): $(OBJ_FILES)
-	$(CC) -o $(EXEC_NAME) $(OBJ_FILES)
+	$(CC) -lrt -o $(EXEC_NAME) $(OBJ_FILES)
 
 $(BUILD_DIR)%.o: $(SRC_DIR)%.c
 	$(CC) $(INCLUDE) $(CFLAGS) -o $@ -c $<
